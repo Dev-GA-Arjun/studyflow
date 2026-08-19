@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS subjects (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name VARCHAR(150) NOT NULL,
+  description TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id SERIAL PRIMARY KEY,
+  subject_id INTEGER NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
+  title VARCHAR(200) NOT NULL,
+  description TEXT,
+  due_date DATE,
+  status VARCHAR(30) NOT NULL DEFAULT 'pending',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS subjects_user_id_index ON subjects(user_id);
+CREATE INDEX IF NOT EXISTS tasks_subject_id_index ON tasks(subject_id);
+CREATE INDEX IF NOT EXISTS tasks_due_date_index ON tasks(due_date);

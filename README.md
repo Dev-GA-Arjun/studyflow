@@ -36,3 +36,14 @@ Run the client with `npm run dev` from `client/` and the server with `npm run de
 The browser loads the Vite client at `http://localhost:5173`. API requests go to the URL in `VITE_API_URL`, such as `http://localhost:5000`. Express receives `GET /api/health`, runs the CORS and JSON middleware, and returns a JSON health response.
 
 CORS is required because the Vite client and Express server use different local origins. `CLIENT_URL` allows the backend to explicitly permit the frontend origin. Environment variables keep ports, URLs, and future secrets outside committed source code.
+
+## PostgreSQL foundation
+
+Set `DATABASE_URL` in `server/.env`, then run these commands from `server/`:
+
+```bash
+npm run db:migrate
+npm run db:seed
+```
+
+The migration creates the `users`, `subjects`, and `tasks` tables, their primary and foreign keys, and the indexes needed for common relationship and due-date lookups. The seed command inserts development-only sample data in a transaction.
