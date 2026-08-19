@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const subjectRoutes = require('./routes/subjectRoutes');
+const taskRoutes = require('./routes/taskRoutes');
+const { errorHandler } = require('./middleware/errors');
 
 const allowedClientOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
 
@@ -12,13 +15,13 @@ app.get('/api/health', (request, response) => {
 	response.status(200).json({ status: 'ok', service: 'studyflow-server' });
 });
 
+app.use('/api/subjects', subjectRoutes);
+app.use('/api/tasks', taskRoutes);
+
 app.use((request, response) => {
 	response.status(404).json({ error: 'Route not found' });
 });
 
-app.use((error, request, response, next) => {
-	console.error(error);
-	response.status(500).json({ error: 'Internal server error' });
-});
+app.use(errorHandler);
 
 module.exports = app;

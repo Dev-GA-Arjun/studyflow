@@ -23,11 +23,15 @@ Authentication, JWT, request validation, and SQL-backed application endpoints ar
 
 ## Stage 3: Subjects, Tasks, and Dashboard
 
-- React `useState` and `useEffect`
-- Controlled inputs, form validation, loading/error UI
-- Async API fetching
+- RESTful endpoint design for subjects and tasks
+- Express routes, controllers, and service/database separation
+- HTTP status codes for success, validation, not-found, and server errors
+- Request body and route ID validation
 - SQL-backed subject and task CRUD
-- Responsive layout
+- SQL JOINs, filtering, and ordering
+- Centralized server-side error handling
+
+React state, controlled inputs, loading/error UI, and frontend API fetching remain deferred until the frontend integration stage.
 
 ## Stage 4: MongoDB Study Plans
 
