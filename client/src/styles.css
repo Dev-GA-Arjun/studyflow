@@ -1,0 +1,30 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #17202a;
+  background: #f4f7f5;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  align-items: center;
+  background: #173f35;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 6vw;
+}
+
+header a {
+  color: inherit;
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding: 5rem 6vw;
+}
