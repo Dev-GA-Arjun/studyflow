@@ -12,12 +12,14 @@ This file tracks the requested Project Score concepts and the stage where each w
 - Environment variable based port configuration
 - Git workflow documentation
 
-## Stage 2: Authentication and PostgreSQL
+## Stage 2: PostgreSQL Foundation
 
 - Problem modeling and system design
-- PostgreSQL primary/foreign keys, normalization, joins, filtering, ordering, grouping, and indexes
-- Password hashing and JWT issuance/verification
-- Request validation, sanitization, and injection-aware parameterized queries
+- PostgreSQL primary/foreign keys, normalization, and justified indexes
+- Environment variable based database connection
+- Parameterized seed queries
+
+Authentication, JWT, request validation, and SQL-backed application endpoints are intentionally deferred to later stages.
 
 ## Stage 3: Subjects, Tasks, and Dashboard
 
