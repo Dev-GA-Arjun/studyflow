@@ -20,6 +20,11 @@ async function listTasks(request, response) {
   response.status(200).json({ tasks });
 }
 
+async function summarizeTasks(request, response) {
+  const summary = await taskService.summarizeTasks();
+  response.status(200).json({ summary });
+}
+
 async function getTask(request, response) {
   const task = await taskService.findTaskById(parseId(request.params.id, 'Task'));
   if (!task) throw new AppError(404, 'Task not found.');
@@ -56,4 +61,4 @@ async function deleteTask(request, response) {
   response.status(200).json({ message: 'Task deleted.' });
 }
 
-module.exports = { listTasks, getTask, createTask, updateTask, deleteTask };
+module.exports = { listTasks, summarizeTasks, getTask, createTask, updateTask, deleteTask };

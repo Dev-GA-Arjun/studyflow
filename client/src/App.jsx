@@ -1,4 +1,5 @@
 import { Link, Route, Routes } from 'react-router-dom';
+import TasksPage from './pages/TasksPage';
 
 function Layout({ children }) {
   return (
@@ -29,7 +30,7 @@ function LoginPage() {
 }
 
 function DashboardPage() {
-  return <main><h1>Dashboard</h1><p>Your study tasks will appear here.</p></main>;
+  return <TasksPage />;
 }
 
 export default function App() {

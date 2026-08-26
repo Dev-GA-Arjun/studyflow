@@ -3,11 +3,17 @@ const path = require('path');
 const { pool } = require('./index');
 
 async function runMigration() {
-  const migrationPath = path.join(__dirname, 'migrations', '001_create_studyflow_tables.sql');
-  const migrationSql = await fs.readFile(migrationPath, 'utf8');
+  const migrationsDirectory = path.join(__dirname, 'migrations');
+  const migrationFiles = (await fs.readdir(migrationsDirectory))
+    .filter((fileName) => fileName.endsWith('.sql'))
+    .sort();
 
-  await pool.query(migrationSql);
-  console.log('StudyFlow PostgreSQL tables and indexes are ready.');
+  for (const migrationFile of migrationFiles) {
+    const migrationPath = path.join(migrationsDirectory, migrationFile);
+    const migrationSql = await fs.readFile(migrationPath, 'utf8');
+    await pool.query(migrationSql);
+    console.log(`Applied migration ${migrationFile}.`);
+  }
 }
 
 runMigration()

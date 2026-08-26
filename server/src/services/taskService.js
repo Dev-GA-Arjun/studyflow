@@ -22,6 +22,20 @@ async function findTasks(status) {
   return result.rows;
 }
 
+async function summarizeTasks() {
+  const result = await query(
+    `SELECT subjects.id AS subject_id, subjects.name AS subject_name,
+            COUNT(tasks.id)::int AS total_tasks,
+            COUNT(tasks.id) FILTER (WHERE tasks.status = 'completed')::int AS completed_tasks,
+            COUNT(tasks.id) FILTER (WHERE tasks.status <> 'completed')::int AS open_tasks
+     FROM subjects
+     LEFT JOIN tasks ON tasks.subject_id = subjects.id
+     GROUP BY subjects.id, subjects.name
+     ORDER BY subjects.name ASC`,
+  );
+  return result.rows;
+}
+
 async function findTaskById(id) {
   const result = await query(
     `SELECT tasks.id, tasks.subject_id, tasks.title, tasks.description,
@@ -64,4 +78,4 @@ async function deleteTask(id) {
   return result.rows[0] || null;
 }
 
-module.exports = { findTasks, findTaskById, createTask, updateTask, deleteTask };
+module.exports = { findTasks, summarizeTasks, findTaskById, createTask, updateTask, deleteTask };
