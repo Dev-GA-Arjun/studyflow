@@ -10,10 +10,14 @@ async function listSubjects(request, response) {
   response.status(200).json({ subjects });
 }
 
-async function getSubject(request, response) {
-  const subject = await subjectService.findSubjectById(parseId(request.params.id, 'Subject'));
-  if (!subject) throw new AppError(404, 'Subject not found.');
-  response.status(200).json({ subject });
+async function getSubject(request, response, next) {
+  try {
+    const subject = await subjectService.findSubjectById(parseId(request.params.id, 'Subject'));
+    if (!subject) throw new AppError(404, 'Subject not found.');
+    response.status(200).json({ subject });
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function createSubject(request, response) {
