@@ -33,13 +33,6 @@ Authentication, JWT, request validation, and SQL-backed application endpoints ar
 
 React state, controlled inputs, loading/error UI, and frontend API fetching remain deferred until the frontend integration stage.
 
-## Stage 4: MongoDB Study Plans
-
-- Mongo schema modeling
-- Mongo CRUD
-- Embedding versus referencing decision
-- Mongo indexing
-
 ## Stage 5: AI Study Plans
 
 - LLM API integration
@@ -51,5 +44,3 @@ React state, controlled inputs, loading/error UI, and frontend API fetching rema
 
 - Jest unit tests
 - Supertest API integration tests
-- Vercel frontend deployment
-- Render backend deployment
