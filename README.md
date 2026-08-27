@@ -9,7 +9,6 @@ StudyFlow is a full-stack study planning and progress tracking application.
 - `PRD.md`: product requirements.
 - `HLD.md`: high-level design.
 - `LLD.md`: low-level design.
-- `PROJECT_SCORE.md`: Project Score implementation plan.
 
 ## Status
 
