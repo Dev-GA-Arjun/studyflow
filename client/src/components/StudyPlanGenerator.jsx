@@ -14,6 +14,18 @@ export default function StudyPlanGenerator() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Function declaration is used before its declaration.
+  // JavaScript hoists function declarations, so this call is valid.
+  const formTitle = getFormTitle(form.subject);
+
+  function getFormTitle(subject) {
+    if (subject.trim()) {
+      return `Generate a study plan for ${subject}`;
+    }
+
+    return 'Generate a study plan';
+  }
+
   function handleChange(event) {
     const { name, value } = event.target;
     setForm((currentForm) => ({ ...currentForm, [name]: value }));
@@ -32,6 +44,7 @@ export default function StudyPlanGenerator() {
         hoursPerDay: Number(form.hoursPerDay),
         days: Number(form.days),
       });
+
       setPlan(generatedPlan);
     } catch (requestError) {
       setError(requestError.message);
@@ -45,41 +58,86 @@ export default function StudyPlanGenerator() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">StudyFlow AI</p>
-          <h2 id="ai-planner-heading">Generate a study plan</h2>
+          <h2 id="ai-planner-heading">{formTitle}</h2>
         </div>
       </div>
+
       <form className="ai-form" onSubmit={handleSubmit}>
         <label>
           Subject
-          <input name="subject" value={form.subject} onChange={handleChange} required maxLength="150" />
+          <input
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            required
+            maxLength="150"
+          />
         </label>
+
         <label>
           Topics to cover
-          <textarea name="topics" value={form.topics} onChange={handleChange} required rows="3" maxLength="2000" placeholder="Promises, async/await, error handling" />
+          <textarea
+            name="topics"
+            value={form.topics}
+            onChange={handleChange}
+            required
+            rows="3"
+            maxLength="2000"
+            placeholder="Promises, async/await, error handling"
+          />
         </label>
+
         <div className="form-row">
           <label>
             Hours per day
-            <input type="number" name="hoursPerDay" value={form.hoursPerDay} onChange={handleChange} min="0.5" max="12" step="0.5" required />
+            <input
+              type="number"
+              name="hoursPerDay"
+              value={form.hoursPerDay}
+              onChange={handleChange}
+              min="0.5"
+              max="12"
+              step="0.5"
+              required
+            />
           </label>
+
           <label>
             Number of days
-            <input type="number" name="days" value={form.days} onChange={handleChange} min="1" max="30" required />
+            <input
+              type="number"
+              name="days"
+              value={form.days}
+              onChange={handleChange}
+              min="1"
+              max="30"
+              required
+            />
           </label>
         </div>
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Generating...' : 'Generate plan'}
         </button>
       </form>
-      {error && <p className="state-message error-message">{error}</p>}
+
+      {error && (
+        <p className="state-message error-message">
+          {error}
+        </p>
+      )}
+
       {plan.length > 0 && (
         <ol className="generated-plan">
           {plan.map((entry) => (
             <li key={entry.day}>
               <div>
-                <h3>Day {entry.day}: {entry.topic}</h3>
+                <h3>
+                  Day {entry.day}: {entry.topic}
+                </h3>
                 <p>{entry.goal}</p>
               </div>
+
               <span>{entry.durationMinutes} min</span>
             </li>
           ))}
